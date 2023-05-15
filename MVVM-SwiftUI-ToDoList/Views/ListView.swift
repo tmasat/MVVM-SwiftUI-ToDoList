@@ -19,6 +19,8 @@ struct ListView: View {
             ForEach(items) { item in
                 ListRowView(item: item)
             }
+            .onDelete(perform: deleteItem)
+            .onMove(perform: onMove)
         }
         .listStyle(PlainListStyle())
         .navigationTitle("Todo List")
@@ -27,6 +29,14 @@ struct ListView: View {
             trailing:
                 NavigationLink("Add", destination: AddView())
         )
+    }
+    
+    func deleteItem(indexSet: IndexSet) {
+        items.remove(atOffsets: indexSet)
+    }
+    
+    func onMove(from: IndexSet, to: Int) {
+        items.move(fromOffsets: from, toOffset: to)
     }
 }
 
