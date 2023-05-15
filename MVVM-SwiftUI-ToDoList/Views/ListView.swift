@@ -9,16 +9,15 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State var items: [String] = [
-    "First title",
-    "Second title",
-    "Third title"
+    @State var items: [ItemModel] = [
+        ItemModel(title: "First title", isCompleted: false),
+        ItemModel(title: "Second title", isCompleted: true)
     ]
     
     var body: some View {
         List {
-            ForEach(items, id: \.self) { item in
-                ListRowView(title: item)
+            ForEach(items) { item in
+                ListRowView(item: item)
             }
         }
         .listStyle(PlainListStyle())
@@ -26,7 +25,7 @@ struct ListView: View {
         .navigationBarItems(
             leading: EditButton(),
             trailing:
-                NavigationLink("Add", destination: Text("Destination"))
+                NavigationLink("Add", destination: AddView())
         )
     }
 }
