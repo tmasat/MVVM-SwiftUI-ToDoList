@@ -8,17 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		423FB0C02A125FCE00A0A672 /* MVVM_SwiftUI_ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423FB0BF2A125FCE00A0A672 /* MVVM_SwiftUI_ToDoListApp.swift */; };
-		423FB0C22A125FCE00A0A672 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423FB0C12A125FCE00A0A672 /* ContentView.swift */; };
 		423FB0C42A125FD000A0A672 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 423FB0C32A125FD000A0A672 /* Assets.xcassets */; };
 		423FB0C72A125FD000A0A672 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 423FB0C62A125FD000A0A672 /* Preview Assets.xcassets */; };
+		423FB0CF2A1277E600A0A672 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423FB0CE2A1277E600A0A672 /* ListView.swift */; };
+		423FB0D12A127E2900A0A672 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423FB0D02A127E2900A0A672 /* ListRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		423FB0BC2A125FCE00A0A672 /* MVVM-SwiftUI-ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVVM-SwiftUI-ToDoList.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		423FB0BF2A125FCE00A0A672 /* MVVM_SwiftUI_ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVM_SwiftUI_ToDoListApp.swift; sourceTree = "<group>"; };
-		423FB0C12A125FCE00A0A672 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		423FB0C32A125FD000A0A672 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		423FB0C62A125FD000A0A672 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		423FB0CE2A1277E600A0A672 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		423FB0D02A127E2900A0A672 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +53,8 @@
 		423FB0BE2A125FCE00A0A672 /* MVVM-SwiftUI-ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				423FB0CD2A1277BE00A0A672 /* Views */,
 				423FB0BF2A125FCE00A0A672 /* MVVM_SwiftUI_ToDoListApp.swift */,
-				423FB0C12A125FCE00A0A672 /* ContentView.swift */,
 				423FB0C32A125FD000A0A672 /* Assets.xcassets */,
 				423FB0C52A125FD000A0A672 /* Preview Content */,
 			);
@@ -65,6 +67,15 @@
 				423FB0C62A125FD000A0A672 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		423FB0CD2A1277BE00A0A672 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				423FB0CE2A1277E600A0A672 /* ListView.swift */,
+				423FB0D02A127E2900A0A672 /* ListRowView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +148,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				423FB0C22A125FCE00A0A672 /* ContentView.swift in Sources */,
 				423FB0C02A125FCE00A0A672 /* MVVM_SwiftUI_ToDoListApp.swift in Sources */,
+				423FB0CF2A1277E600A0A672 /* ListView.swift in Sources */,
+				423FB0D12A127E2900A0A672 /* ListRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
