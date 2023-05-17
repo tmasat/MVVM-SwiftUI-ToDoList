@@ -10,18 +10,51 @@ import SwiftUI
 struct AddView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var listViewModel: ListViewModel
-    @State var textFieldText: String = ""
+    @State var titleTextFieldText: String = ""
+    @State var descriptionTextFieldText: String = ""
     
     @State var alertTitle: String = ""
     @State var showAlert: Bool = false
+    @State private var selectedPriority = 1
+    @State private var dueDate = Date()
     
     var body: some View {
         ScrollView {
             VStack {
-                TextField("Type something here..", text: $textFieldText)
-                    .padding(.horizontal)
-                    .frame(height: 55)
+                HStack {
+                    Text("Title: ")
+                        .font(.title)
+                        .frame(alignment: .leading)
+                    
+                    TextField("Type title here..", text: $titleTextFieldText)
+                        .cornerRadius(10)
+                        .font(.headline)
+                        .backgroundStyle(.gray)
+                        .frame(height: 55)
+                }
+                
+                TextField("Type something here..", text: $descriptionTextFieldText, axis: .vertical)
+                    .frame(minHeight: 55)
                     .cornerRadius(10)
+                    .lineLimit(2...6)
+                    .padding()
+                
+                Picker(selection: $selectedPriority, label: Text("Priority")) {
+                    Text("Low").tag(1)
+                    Text("Medium").tag(2)
+                    Text("High").tag(3)
+                }
+                .pickerStyle(.segmented)
+                .padding(.bottom, 20)
+                
+             
+                    DatePicker(
+                        "Due Date",
+                        selection: $dueDate,
+                        displayedComponents: [.date]
+                    )
+                    .padding(.bottom, 20)
+                
                 
                 Button(action: saveButtonPressed, label: {
                     Text("Save".uppercased())
@@ -32,23 +65,23 @@ struct AddView: View {
                         .background(Color.accentColor)
                         .cornerRadius(10)
                 })
-                
             }
             .padding(12)
         }
+        
         .navigationTitle(("Add an Item"))
         .alert(isPresented: $showAlert, content: getAlert)
     }
     
     func saveButtonPressed() {
         if textIsAppropriate() {
-            listViewModel.addItem(title: textFieldText)
+            listViewModel.addItem(title: titleTextFieldText, description: descriptionTextFieldText, priority: selectedPriority)
             presentationMode.wrappedValue.dismiss()
         }
     }
     
     func textIsAppropriate() -> Bool {
-        if textFieldText.count < 3 {
+        if (titleTextFieldText.count != 0) && descriptionTextFieldText.count < 3 {
             alertTitle = "Your new todo item must be at least 3 characters long"
             showAlert.toggle()
             return false
