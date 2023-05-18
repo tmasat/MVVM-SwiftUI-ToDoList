@@ -12,18 +12,20 @@ struct ItemModel: Identifiable, Codable {
     let title: String
     let description: String
     let priority: Int
+    let dueDate: Date
     let isCompleted: Bool
     
-    init(id: String = UUID().uuidString, title: String, description: String, priority: Int, isCompleted: Bool) {
+    init(id: String = UUID().uuidString, title: String, description: String, priority: Int, dueDate: Date, isCompleted: Bool) {
         self.id = id
         self.title = title
         self.description = description
         self.priority = priority
+        self.dueDate = dueDate
         self.isCompleted = isCompleted
     }
     
     func updateCompletion() -> ItemModel {
-        ItemModel(id: id, title: title, description: description, priority: priority, isCompleted: !isCompleted)
+        ItemModel(id: id, title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: !isCompleted)
     }
 }
 

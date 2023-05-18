@@ -38,12 +38,18 @@ class ListViewModel: ObservableObject {
         items.move(fromOffsets: from, toOffset: to)
     }
     
-    func addItem(title: String, description: String, priority: Int) {
-        let newItem = ItemModel(title: title, description: description, priority: priority, isCompleted: false)
+    func addItem(title: String, description: String, priority: Int, dueDate: Date) {
+        let newItem = ItemModel(title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: false)
         items.append(newItem)
     }
     
-    func updateItem(item: ItemModel) {
+    func updateCheckIcon(item: ItemModel) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index] = item.updateCompletion()
+        }
+    }
+    
+    func updateItem(title: String, description: String, priority: Int, dueDate: Date, isCompleted: Bool) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item.updateCompletion()
         }
@@ -54,5 +60,7 @@ class ListViewModel: ObservableObject {
             UserDefaults.standard.set(encodedData, forKey: itemsKey)
         }
     }
+    
+    
     
 }

@@ -16,7 +16,8 @@ struct ListRowView: View {
             HStack {
                 Text(item.title)
                     .font(.title)
-                    .padding(.leading, 35)
+                    .fontWeight(.bold)
+                    .padding(.leading, 30)
                 Spacer()
             }
             
@@ -27,15 +28,20 @@ struct ListRowView: View {
                 Spacer()
             }
             .font(.title2)
-            .padding(.vertical, 8)
+            .padding(.bottom, 5)
             
             HStack {
                 Text("Priority: \(priorityParser(index:item.priority))")
                 Spacer()
-                Text("Date")
+                Text(dateFormatter(date: item.dueDate))
             }
             .padding(.leading, 35)
             .padding(.trailing, 35)
+            .onLongPressGesture {
+                withAnimation(.linear) {
+                    print("LONG PRESS GESTURE")
+                }
+            }
         }
     }
     
@@ -47,18 +53,10 @@ struct ListRowView: View {
         default: return "Error"
         }
     }
-}
-
-
-struct ListRowView_Previews: PreviewProvider {
     
-    static var item1 = ItemModel(title: "First Item", description: "first description", priority: 1, isCompleted: false)
-    static var item2 = ItemModel(title: "Second Item", description: "second description", priority: 2, isCompleted: true)
-    
-    static var previews: some View {
-        Group {
-            ListRowView(item: item1)
-            ListRowView(item: item2)
-        }
+    private func dateFormatter(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
     }
 }

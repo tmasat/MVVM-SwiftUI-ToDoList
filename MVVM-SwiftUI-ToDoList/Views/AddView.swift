@@ -75,7 +75,13 @@ struct AddView: View {
     
     func saveButtonPressed() {
         if textIsAppropriate() {
-            listViewModel.addItem(title: titleTextFieldText, description: descriptionTextFieldText, priority: selectedPriority)
+            listViewModel.addItem(
+                title: titleTextFieldText,
+                description: descriptionTextFieldText,
+                priority: selectedPriority,
+                dueDate: dueDate
+            )
+            
             presentationMode.wrappedValue.dismiss()
         }
     }
