@@ -45,11 +45,11 @@ class ListViewModel: ObservableObject {
     
     func updateCheckIcon(item: ItemModel) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {
-            items[index] = item.updateCompletion()
+            items[index] = item.updateCheckItemCompletion()
         }
     }
     
-    func updateItem(title: String, description: String, priority: Int, dueDate: Date, isCompleted: Bool) {
+    func updateItem(item: ItemModel) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item.updateCompletion()
         }

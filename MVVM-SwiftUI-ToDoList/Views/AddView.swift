@@ -18,6 +18,8 @@ struct AddView: View {
     @State private var selectedPriority = 1
     @State private var dueDate = Date()
     
+    var willUpdate: Bool = false
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -69,7 +71,7 @@ struct AddView: View {
             .padding(12)
         }
         
-        .navigationTitle(("Add an Item"))
+        .navigationTitle((willUpdate ? "Update Item" : "Add an Item"))
         .alert(isPresented: $showAlert, content: getAlert)
     }
     

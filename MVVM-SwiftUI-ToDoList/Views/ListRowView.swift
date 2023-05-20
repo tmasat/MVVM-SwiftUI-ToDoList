@@ -10,6 +10,7 @@ import SwiftUI
 struct ListRowView: View {
     
     let item: ItemModel
+    @State var cellIsTapped: Bool = false
     
     var body: some View {
         VStack {
@@ -38,10 +39,9 @@ struct ListRowView: View {
             .padding(.leading, 35)
             .padding(.trailing, 35)
             .onLongPressGesture {
-                withAnimation(.linear) {
-                    print("LONG PRESS GESTURE")
-                }
+                cellIsTapped.toggle()
             }
+            NavigationLink("", destination: AddView(willUpdate: true), isActive: $cellIsTapped)
         }
     }
     

@@ -10,7 +10,6 @@ import SwiftUI
 struct ListView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     
-    
     var body: some View {
         List {
             ForEach(listViewModel.items) { item in
@@ -29,7 +28,7 @@ struct ListView: View {
         .navigationBarItems(
             leading: EditButton(),
             trailing:
-                NavigationLink("Add", destination: AddView())
+                NavigationLink("Add", destination: AddView(willUpdate: false))
         )
     }
 }

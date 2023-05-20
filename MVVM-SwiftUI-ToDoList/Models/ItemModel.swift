@@ -24,8 +24,12 @@ struct ItemModel: Identifiable, Codable {
         self.isCompleted = isCompleted
     }
     
-    func updateCompletion() -> ItemModel {
+    func updateCheckItemCompletion() -> ItemModel {
         ItemModel(id: id, title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: !isCompleted)
+    }
+    
+    func updateCompletion() -> ItemModel {
+        ItemModel(id: id, title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: isCompleted)
     }
 }
 
