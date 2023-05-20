@@ -41,7 +41,7 @@ struct ListRowView: View {
             .onLongPressGesture {
                 cellIsTapped.toggle()
             }
-            NavigationLink("", destination: AddView(willUpdate: true), isActive: $cellIsTapped)
+            NavigationLink("", destination: AddView(item: self.item), isActive: $cellIsTapped)
         }
     }
     

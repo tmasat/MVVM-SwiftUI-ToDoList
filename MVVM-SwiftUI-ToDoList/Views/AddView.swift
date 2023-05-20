@@ -18,7 +18,7 @@ struct AddView: View {
     @State private var selectedPriority = 1
     @State private var dueDate = Date()
     
-    var willUpdate: Bool = false
+    var item: ItemModel? = nil
     
     var body: some View {
         ScrollView {
@@ -49,13 +49,13 @@ struct AddView: View {
                 .pickerStyle(.segmented)
                 .padding(.bottom, 20)
                 
-             
-                    DatePicker(
-                        "Due Date",
-                        selection: $dueDate,
-                        displayedComponents: [.date]
-                    )
-                    .padding(.bottom, 20)
+                
+                DatePicker(
+                    "Due Date",
+                    selection: $dueDate,
+                    displayedComponents: [.date]
+                )
+                .padding(.bottom, 20)
                 
                 
                 Button(action: saveButtonPressed, label: {
@@ -71,18 +71,31 @@ struct AddView: View {
             .padding(12)
         }
         
-        .navigationTitle((willUpdate ? "Update Item" : "Add an Item"))
+        .navigationTitle((item != nil ? "Update Item" : "Add an Item"))
         .alert(isPresented: $showAlert, content: getAlert)
     }
     
     func saveButtonPressed() {
         if textIsAppropriate() {
-            listViewModel.addItem(
-                title: titleTextFieldText,
-                description: descriptionTextFieldText,
-                priority: selectedPriority,
-                dueDate: dueDate
-            )
+            if let currentItem = item {
+                listViewModel.updateItem(
+                    item: ItemModel(
+                        id: currentItem.id,
+                        title: titleTextFieldText,
+                        description: descriptionTextFieldText,
+                        priority: selectedPriority,
+                        dueDate: dueDate,
+                        isCompleted: currentItem.isCompleted
+                    )
+                )
+            } else {
+                listViewModel.addItem(
+                    title: titleTextFieldText,
+                    description: descriptionTextFieldText,
+                    priority: selectedPriority,
+                    dueDate: dueDate
+                )
+            }
             
             presentationMode.wrappedValue.dismiss()
         }
@@ -99,14 +112,5 @@ struct AddView: View {
     
     func getAlert() -> Alert {
         return Alert(title: Text(alertTitle))
-    }
-}
-
-struct AddView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AddView()
-        }
-        .environmentObject(ListViewModel())
     }
 }
