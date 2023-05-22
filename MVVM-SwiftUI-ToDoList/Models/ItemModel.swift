@@ -32,3 +32,10 @@ struct ItemModel: Identifiable, Codable {
         ItemModel(id: id, title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: isCompleted)
     }
 }
+
+/*
+ TODOS
+ 1) Add new folder structer for every page
+ 2) Add presenters
+ 3) Add Combine
+ */
