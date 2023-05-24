@@ -7,11 +7,28 @@
 
 import Foundation
 
+enum ItemModelPriority: Int, Codable {
+    case low
+    case medium
+    case high
+    
+    var title: String {
+        switch self {
+        case .low:
+            return "Low"
+        case .medium:
+            return "Medium"
+        case .high:
+            return "High"
+        }
+    }
+}
+
 struct ItemModel: Identifiable, Codable {
     let id: String
     let title: String
     let description: String
-    let priority: Int
+    let priority: ItemModelPriority
     let dueDate: Date
     let isCompleted: Bool
     
@@ -19,17 +36,17 @@ struct ItemModel: Identifiable, Codable {
         self.id = id
         self.title = title
         self.description = description
-        self.priority = priority
+        self.priority = ItemModelPriority(rawValue: priority) ?? .high
         self.dueDate = dueDate
         self.isCompleted = isCompleted
     }
     
     func updateCheckItemCompletion() -> ItemModel {
-        ItemModel(id: id, title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: !isCompleted)
+        ItemModel(id: id, title: title, description: description, priority: priority.rawValue, dueDate: dueDate, isCompleted: !isCompleted)
     }
     
     func updateCompletion() -> ItemModel {
-        ItemModel(id: id, title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: isCompleted)
+        ItemModel(id: id, title: title, description: description, priority: priority.rawValue, dueDate: dueDate, isCompleted: isCompleted)
     }
 }
 

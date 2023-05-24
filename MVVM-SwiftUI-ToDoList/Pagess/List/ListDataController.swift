@@ -1,66 +1,57 @@
 //
-//  ListViewModel.swift
+//  ListDataController.swift
 //  MVVM-SwiftUI-ToDoList
 //
-//  Created by Çağrı Tuğberk Masat on 15.05.2023.
+//  Created by aybek kaya on 24.05.2023.
 //
 
 import Foundation
+import Combine
 
-class ListViewModel: ObservableObject {
+final class ListDataController {
+    private let itemsKey: String = "items_list"
+    private(set) var items: CurrentValueSubject<[ItemModel], Never> = .init([])
     
-    @Published var items: [ItemModel] = [] {
-        didSet {
-            saveItems()
-        }
-    }
-    
-    let itemsKey: String = "items_list"
-    
-    init() {
-        getItems()
-    }
     
     func getItems() {
         guard
             let data = UserDefaults.standard.data(forKey: itemsKey),
             let savedItems = try? JSONDecoder().decode([ItemModel].self, from: data)
         else { return }
-        
-        self.items = savedItems
+        self.items.send(savedItems)
     }
     
     func deleteItem(indexSet: IndexSet) {
+        var items = items.value
         items.remove(atOffsets: indexSet)
+        self.items.send(items)
     }
-    
+
     func moveItem(from: IndexSet, to: Int) {
+        var items = items.value
         items.move(fromOffsets: from, toOffset: to)
+        self.items.send(items)
     }
     
     func addItem(title: String, description: String, priority: Int, dueDate: Date) {
         let newItem = ItemModel(title: title, description: description, priority: priority, dueDate: dueDate, isCompleted: false)
+        var items = items.value
         items.append(newItem)
-    }
-    
-    func updateItem(item: ItemModel) {
-        if let index = items.firstIndex(where: { $0.id == item.id }) {
-            items[index] = item.updateCompletion()
-        }
-    }
-    
-    func updateCheckIcon(item: ItemModel) {
-        if let index = items.firstIndex(where: { $0.id == item.id }) {
-            items[index] = item.updateCheckItemCompletion()
-        }
+        self.items.send(items)
     }
     
     func saveItems() {
-        if let encodedData = try?  JSONEncoder().encode(items) {
+        var arrItems = items.value
+        if let encodedData = try? JSONEncoder().encode(arrItems) {
             UserDefaults.standard.set(encodedData, forKey: itemsKey)
         }
     }
     
-    
+    func updateItem(item: ItemModel) {
+        var arrItems = items.value
+        if let index = arrItems.firstIndex(where: { $0.id == item.id }) {
+            arrItems[index] = item.updateCompletion()
+        }
+    }
     
 }
